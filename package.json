@@ -34,7 +34,8 @@
   "scripts": {
     "build": "tsc && bun build src/**.ts --outdir dist/",
     "format": "prettier -w \"src/**/*\" --ignore-unknown --cache",
-    "prepack": "npm run build"
+    "prepack": "npm run build",
+    "release": "semantic-release"
   },
   "keywords": [
     "astro-adapter",
