@@ -1,11 +1,23 @@
 {
-  "name": "astro-bun",
-  "version": "0.0.5-beta",
+  "name": "astro-bun-adapter",
+  "version": "0.1.0",
   "type": "module",
   "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/andremralves/astro-bun.git"
+    "url": "https://github.com/ido-pluto/astro-bun-adapter.git"
+  },
+  "homepage": "https://github.com/ido-pluto/astro-bun-adapter.git#readme",
+  "bugs": {
+    "url": "https://github.com/ido-pluto/astro-bun-adapter/issues"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/ido-pluto"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "exports": {
     ".": "./dist/index.js",
@@ -13,15 +25,20 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "dist"
+    "dist",
+    "LICENSE",
+    "README.md"
   ],
   "license": "MIT",
+  "author": "Ido S.",
   "scripts": {
-    "build": "bun ./scripts/build.js && tsc",
-    "format": "prettier -w \"**/*\" --ignore-unknown --cache"
+    "build": "tsc && bun build src/**.ts --outdir dist/",
+    "format": "prettier -w \"src/**/*\" --ignore-unknown --cache"
   },
   "keywords": [
-    "astro-adapter"
+    "astro-adapter",
+    "bun",
+    "withastro"
   ],
   "devDependencies": {
     "astro": "^4.0.7",
@@ -31,10 +48,6 @@
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
-    "typescript": "^5.0.0",
     "astro": "^4.0.7"
-  },
-  "dependencies": {
-    "esbuild": "^0.19.3"
   }
 }

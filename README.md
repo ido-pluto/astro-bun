@@ -1,6 +1,8 @@
-# astro-bun
+# astro-bun-adapter
 
-This adapter allows Astro to run your SSR site with the Bun's native API `Bun.serve`.
+> Allows Astro to run your SSR site with the Bun's native API `Bun.serve`.
+
+Fix the `astro-bun` adapter's issue, serving static files.
 
 ## Prerequisites
 
@@ -8,10 +10,10 @@ This adapter allows Astro to run your SSR site with the Bun's native API `Bun.se
 
 ## Installation
 
-1. Install `astro-bun` package
+1. Install `astro-bun-adapter` package
 
 ```bash
-bun add astro-bun
+bun i astro-bun-adapter
 ```
 
 2. Update your `astro.config.mjs` to use `astro-bun` adapter.
@@ -19,7 +21,7 @@ bun add astro-bun
 ```bash
 // astro.config.mjs
 import { defineConfig } from 'astro/config';
-import bun from 'astro-bun';
+import bun from 'astro-bun-adapter';
 
 export default defineConfig({
   output: 'server',

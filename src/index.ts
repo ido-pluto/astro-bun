@@ -20,26 +20,27 @@ export function getAdapter(args?: Options): AstroAdapter {
   };
 }
 
-export default function createIntegration(userOptions?: Options): AstroIntegration {
+export default function createIntegration(
+  userOptions?: Options,
+): AstroIntegration {
   return {
     name: "astro-bun",
     hooks: {
       "astro:config:done": ({ setAdapter, config }) => {
-        setAdapter(getAdapter({
-          ...userOptions,
-          client: config.build.client?.toString(),
-          server: config.build.server?.toString(),
-          host: config.server.host,
-          port: config.server.port,
-          assets: config.build.assets
-        }));
+        setAdapter(
+          getAdapter({
+            ...userOptions,
+            client: config.build.client?.toString(),
+            server: config.build.server?.toString(),
+            host: config.server.host,
+            port: config.server.port,
+            assets: config.build.assets,
+          }),
+        );
 
         if (config.output === "static") {
           console.warn(
-            `[astro-bun] \`output: "server"\` or \`output: "hybrid"\` is required to use this adapter.`,
-          );
-          console.warn(
-            `[astro-bun] Otherwise, this adapter is not required to deploy a static site to Bun.`,
+            `[astro-bun-adapter] \`output: "server"\` or \`output: "hybrid"\` is required to use this adapter.`,
           );
         }
       },

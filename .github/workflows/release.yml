@@ -1,0 +1,37 @@
+name: Release
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "*"
+    tags:
+      - "*"
+
+jobs:
+  release:
+    name: Build & Release
+    runs-on: ubuntu-latest
+
+    concurrency: release-${{ github.ref }}
+    permissions:
+      id-token: write
+      contents: write
+      issues: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+      - name: Install modules
+        run: |
+          npm ci
+
+      - name: Release
+        if: github.ref == 'refs/heads/main'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          npm run release

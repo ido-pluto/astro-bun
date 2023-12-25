@@ -172,3 +172,5 @@ dist
 
 bun.lockb
 package.lock.json
+
+.DS_Store
