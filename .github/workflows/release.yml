@@ -24,9 +24,13 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "20"
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
       - name: Install modules
         run: |
-          npm ci
+          bun install
 
       - name: Release
         if: github.ref == 'refs/heads/main'

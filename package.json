@@ -33,7 +33,8 @@
   "author": "Ido S.",
   "scripts": {
     "build": "tsc && bun build src/**.ts --outdir dist/",
-    "format": "prettier -w \"src/**/*\" --ignore-unknown --cache"
+    "format": "prettier -w \"src/**/*\" --ignore-unknown --cache",
+    "prepack": "npm run build"
   },
   "keywords": [
     "astro-adapter",
