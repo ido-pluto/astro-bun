@@ -49,9 +49,7 @@ export function createExports(manifest: SSRManifest, options: Options) {
 }
 
 function handler(manifest: SSRManifest, options: Options) {
-  const clientRoot = options.client
-    ? Bun.pathToFileURL(options.client)
-    : new URL("../client/", import.meta.url);
+  const clientRoot = options.client ??  new URL("../client/", import.meta.url).href;
 
   const app = new App(manifest);
 
