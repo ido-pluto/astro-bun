@@ -1,37 +1,33 @@
 import type { SSRManifest } from "astro";
 import { App } from "astro/app";
 import type { Options } from "./types";
-import type { Server } from "bun";
+import { pathToFileURL, type Server } from "bun";
+import { sendStaticFile } from "./static-files.ts";
 
 let _server: Server | undefined = undefined;
 
 export function start(manifest: SSRManifest, options: Options) {
-  const clientRoot = new URL("../client/", import.meta.url);
+  const clientRoot = options.client ? pathToFileURL(options.client) :
+    new URL("../client/", import.meta.url);
   const app = new App(manifest);
+
   const logger = app.getAdapterLogger();
   _server = Bun.serve({
     port: options.port,
-    hostname: options.hostname,
+    hostname: getResolvedHostForHttpServer(options.host),
     async fetch(req) {
       if (app.match(req)) {
-        const res = await app.render(req);
-        return res;
+        return await app.render(req);
       }
 
       const url = new URL(req.url);
-      const localPath = new URL(
-        "./" + app.removeBase(url.pathname) + "/index.html",
-        clientRoot,
-      );
 
-      const file = Bun.file(localPath);
-      if (await file.exists()) {
-        let fileResp = new Response(Bun.file(localPath));
-        return fileResp;
+      if (manifest.assets.has(url.pathname)) {
+        const localPath = new URL(app.removeBase(url.pathname), clientRoot);
+        return sendStaticFile(url.pathname, localPath, options);
       }
 
-      const res = await app.render(req);
-      return res;
+      return await app.render(req);
     },
     error(error) {
       return new Response(`<pre>${error}\n${error.stack}</pre>`, {
@@ -64,4 +60,16 @@ export function createExports(manifest: SSRManifest, options: Options) {
       return app.render(request);
     },
   };
+}
+
+function getResolvedHostForHttpServer(host: string | boolean) {
+	if (host === false) {
+		// Use a secure default
+		return '127.0.0.1';
+	} else if (host === true) {
+		// If passed --host in the CLI without arguments
+		return undefined; // undefined typically means 0.0.0.0 or :: (listen on all IPs)
+	} else {
+		return host;
+	}
 }

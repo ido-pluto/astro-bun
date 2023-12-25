@@ -8,11 +8,11 @@ export function getAdapter(args?: Options): AstroAdapter {
     args: args ?? {},
     exports: ["stop", "handle", "start", "running"],
     supportedAstroFeatures: {
-      hybridOutput: "experimental",
-      staticOutput: "experimental",
-      serverOutput: "experimental",
+      hybridOutput: "stable",
+      staticOutput: "stable",
+      serverOutput: "stable",
       assets: {
-        supportKind: "experimental",
+        supportKind: "stable",
         isSharpCompatible: true,
         isSquooshCompatible: true,
       },
@@ -20,12 +20,19 @@ export function getAdapter(args?: Options): AstroAdapter {
   };
 }
 
-export default function createIntegration(args?: Options): AstroIntegration {
+export default function createIntegration(userOptions?: Options): AstroIntegration {
   return {
     name: "astro-bun",
     hooks: {
       "astro:config:done": ({ setAdapter, config }) => {
-        setAdapter(getAdapter(args));
+        setAdapter(getAdapter({
+          ...userOptions,
+          client: config.build.client?.toString(),
+          server: config.build.server?.toString(),
+          host: config.server.host,
+          port: config.server.port,
+          assets: config.build.assets
+        }));
 
         if (config.output === "static") {
           console.warn(

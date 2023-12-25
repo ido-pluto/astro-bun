@@ -1,10 +1,7 @@
 export interface Options {
-  port?: number;
-  hostname?: string;
-}
-
-export interface BuildConfig {
-  server: URL;
-  serverEntry: string;
-  assets: string;
+  host: string | boolean;
+	port: number;
+	server: string;
+	client: string;
+	assets: string;
 }
