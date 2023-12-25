@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/ido-pluto/astro-bun-adapter/compare/v1.0.0...v1.0.1) (2023-12-25)
+
+
+### Bug Fixes
+
+* adapter entrypoint ([78b2de7](https://github.com/ido-pluto/astro-bun-adapter/commit/78b2de758e3b29bc5f2c64269c14d66499366c51))
+
 # 1.0.0 (2023-12-25)
 
 
