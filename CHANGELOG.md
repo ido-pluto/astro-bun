@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/ido-pluto/astro-bun-adapter/compare/v1.0.1...v1.0.2) (2023-12-25)
+
+
+### Bug Fixes
+
+* client directory ([0b9f578](https://github.com/ido-pluto/astro-bun-adapter/commit/0b9f5785e705bcb535f470a556f211797ec201af))
+
 ## [1.0.1](https://github.com/ido-pluto/astro-bun-adapter/compare/v1.0.0...v1.0.1) (2023-12-25)
 
 
