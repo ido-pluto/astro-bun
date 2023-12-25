@@ -32,7 +32,7 @@
   "license": "MIT",
   "author": "Ido S.",
   "scripts": {
-    "build": "tsc && bun build src/**.ts --outdir dist/",
+    "build": "tsc && bun build --external 'astro' --target bun src/**.ts --outdir dist/",
     "format": "prettier -w \"src/**/*\" --ignore-unknown --cache",
     "prepack": "npm run build",
     "release": "semantic-release"

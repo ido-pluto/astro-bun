@@ -39,4 +39,4 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           bun run build
-          bun --bun run release
+          bun run release
