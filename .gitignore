@@ -168,9 +168,5 @@ dist
 .yarn/install-state.gz
 .pnp.\*
 
-# lock
-
-bun.lockb
-package.lock.json
 
 .DS_Store
